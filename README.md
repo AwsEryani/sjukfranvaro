@@ -1,4 +1,4 @@
-# Sjukfrånvaro Prognostisering - Sickness Absence Forecasting App
+## Sjukfrånvaro Prognostisering - Sickness Absence Forecasting App
 
 This web application provides a user-friendly interface to analyze historical sickness absence data and generate future forecasts using a machine learning model.
 
