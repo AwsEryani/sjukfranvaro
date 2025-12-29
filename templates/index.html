@@ -1,0 +1,86 @@
+{% extends 'base.html' %} {# This template inherits from base.html #}
+
+{% block title %}Upload & Analyze{% endblock %} {# Sets the title in base.html #}
+
+{% block content %} {# Content specific to the index page goes here #}
+
+<header class="text-center mb-4">
+  <h1 class="gold-text">Sjukfrånvaro Analys & Prognos</h1>
+  <p class="lead" style="color: #adb5bd;">Ladda upp CSV-fil för att analysera</p>
+</header>
+
+<!-- Upload Form Card -->
+<div class="card mb-4">
+  <div class="card-header">
+    Ladda upp CSV-fil
+  </div>
+  <div class="card-body">
+    {# Ensure this ID is present for JS targeting #}
+    <form id="upload-form" method="post" enctype="multipart/form-data" action="{{ url_for('upload_file_async') }}">
+      <div class="mb-3">
+        <label for="file" class="form-label">Välj CSV-fil:</label>
+        <input class="form-control form-control-dark" type="file" id="file" name="file" accept=".csv" required>
+      </div>
+      <button type="submit" class="btn btn-gold" id="upload-button">
+          <i class="fas fa-upload me-1"></i> Ladda upp och analysera 
+      </button>
+      {# Add spinner for visual feedback during upload start #}
+      <span id="upload-spinner" class="spinner-border spinner-border-sm ms-2 gold-text" role="status" style="display: none;">
+        <span class="visually-hidden">Loading...</span>
+      </span>
+    </form>
+  </div>
+</div>
+
+<!-- Progress Bar Area (Initially Hidden) -->
+<div id="progress-container" class="mt-4" style="display: none;">
+     <h4 class="text-center gold-text mb-2">Analysis Progress for <span id="progress-filename"></span></h4>
+     <div class="progress" style="height: 25px;">
+        <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-gold text-dark fw-bold" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+    </div>
+    <div id="progress-status" class="text-center mt-2" style="color: #adb5bd;">Starting...</div>
+</div>
+
+<!-- Results Area (Initially Hidden, Populated by JS) -->
+<div id="results-area" class="mt-4" style="display: none;">
+    <hr style="border-top: 1px solid #FFD700;">
+    <h2 class="text-center mt-4 mb-3">Analysresultat <span class="gold-text" id="results-filename"></span></h2>
+
+    <div id="r2-score-area" class="text-center mb-3" style="display: none;">
+      <h4>Model Performance (R² Score): <span id="r2-score-value" class="badge fs-6"></span></h4> 
+        <small class="text-muted">(R² score indicates the proportion of variance explained. Closer to 1 is better.)</small>
+    </div>
+     <div id="analysis-error-area" class="alert alert-danger text-center" style="display: none;">
+         Analysis failed: <span id="analysis-error-message"></span>
+     </div>
+
+
+    <!-- Plot Card -->
+    <div id="plot-card" class="card mb-4" style="display: none;">
+      <div class="card-header">
+        Prognostiserad vs aktuell frånvaro
+      </div>
+      <div class="card-body text-center">
+         <img id="result-plot" src="" alt="Analysis Plot" class="img-fluid rounded">
+      </div>
+    </div>
+
+    <!-- Data Table Card -->
+    <div id="table-card" class="card mb-4" style="display: none;">
+      <div class="card-header">
+        Detaljerade prognoser <span id="table-test-year-label"></span>
+      </div>
+      {# Wrapper for responsive scrolling and JS targeting #}
+      <div class="card-body data-table-container results-table-wrapper">
+         <div id="result-table">
+            {# Table HTML will be injected here by JS #}
+         </div>
+         {# Ladda Mer Button for Pagination #}
+         <div class="text-center mt-3">
+             <button id="load-more-btn" class="btn btn-outline-gold" style="display: none;">Ladda Mer Rows</button>
+         </div>
+      </div>
+    </div>
+</div><!-- /#results-area -->
+
+{% endblock %} {# End of the content block for this page #}
