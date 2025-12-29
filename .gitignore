@@ -1,44 +1,44 @@
 # Ignore the entire backend_before_pipeline folder (generated / archival)
- /backend_before_pipeline/
+/backend_before_pipeline/
 
 # Ignore specific generated/large data files you mentioned
- /data/combined2019_2024.csv
- /data/monthly_predictions.csv
+/data/combined2019_2024.csv
+/data/monthly_predictions.csv
 
 # Common Python artifacts
- __pycache__/
- *.py[cod]
- *.pyo
- *.pyd
- *.so
- *.egg-info/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
 
 # Virtualenvs
- venv/
- ENV/
- .venv/
+venv/
+ENV/
+.venv/
 
 # Jupyter
- .ipynb_checkpoints/
+.ipynb_checkpoints/
 
 # Flask uploaded runtime files (do not keep uploads in repo)
- /files/
+/files/
 
 # Editor / OS
- .vscode/
- .idea/
- .DS_Store
- Thumbs.db
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
 
 # Logs and caches
- *.log
- .pytest_cache/
+*.log
+.pytest_cache/
 
 # Build / packaging
- build/
- dist/
- *.egg
- *.whl
+build/
+dist/
+*.egg
+*.whl
 
 final_v1.py
 final_v2.py
